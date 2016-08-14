@@ -1,0 +1,39 @@
+\documentclass{beamer}
+\mode<presentation>{}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {/Users/matthewdrury/Presentations/boosting-presentation-for-galvanize/plots/} }
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\bias}{bias}
+\DeclareMathOperator*{\var}{var}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\goesto}{\rightarrow}
+%\DeclareMathOperator*{\implies}{\Rightarrow}
+
+\title{Boosting}
+\author{Matthew Drury}
+
+\begin{document}
+%
+\begin{frame}
+  \titlepage
+\end{frame}
+%
+\include{section_intro} % Introduction
+\include{section_outline} % Outline and Goals
+\include{section_gb_overview} % You Could Have Invented Gradient Boosting
+%
+\end{document}

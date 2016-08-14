@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Introduction to Boosting}{2}{0}{1}
+\beamer@sectionintoc {2}{Outline of the Lesson}{9}{0}{2}
+\beamer@sectionintoc {3}{You Could Have Invented Gradient Boosting}{12}{0}{3}

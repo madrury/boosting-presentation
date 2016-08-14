@@ -1,0 +1,80 @@
+\section{Setup and Motivation}
+%
+\begin{frame}
+  \begin{figure}
+    \includegraphics[scale=0.1]{training_data}
+  \end{figure}
+  Suppose we have some one dimensional data:
+  $$\mathcal{D} = \left\{ (x_i, y_i) \mid i = 1,2,\ldots,N \right\}$$
+\end{frame}
+%
+\begin{frame}
+  Often our goal is to approximate a functional relationship that the data generating mechanism may obey:
+  $$E(Y|X) \approx f^*(X)$$
+  We will consistently use $f^*$ to notate an estimated function, and $f$ the ground truth function being estimated (unknowable in all real cases).
+\end{frame}
+%
+\begin{frame}
+  The task of finding a function to approximate some one dimensional data is often called \textbf{scatterplot smoothing} or just \textbf{smoothing}.
+\end{frame}
+%
+\begin{frame}
+  One way to operate is to choose some general collection of functions, and then attempt to determine the function in this collection that best approximates the data:
+  $$ f^* = \argmin_{g} \left\{ \sum_i (x_i - g(x_i))^2 \mid g \in \mathcal{C} \right\} $$
+  Choosing $\mathcal{C}$ to be progressively more encompassing will result in closer fits to the data.
+\end{frame}
+%
+\begin{frame}
+  For example, choosing $\mathcal{C}$ to be the collection of all linear functions:
+  $$ \mathcal{C} = \left\{ x \mapsto ax + b \mid a,b \in \mathbb{R} \right\} $$
+recovers classic linear regression.
+  \begin{figure}
+    \includegraphics[scale=0.08]{fitted_line}
+  \end{figure}
+\end{frame}
+%
+\begin{frame}
+  \begin{columns}
+    \column{.6\textwidth}
+      \begin{figure}
+        \includegraphics[scale=0.1]{fitted_line}
+      \end{figure}
+    \column{.4\textwidth}
+      There is a clear issue with the linear regression fit to our sample data set: there are places where \textbf{all} the data is far away from the fitted line.
+  \end{columns}
+\end{frame}
+%
+\begin{frame}
+  A measurement of this defect is the \textbf{squared bias}:
+  $$ \bias(f) = E_X \left[ E_{\mathcal{D}}[f^*(X)] - f(X) \right] ^2$$
+  We say that a model suffering from a case of large bias is \textbf{underfit}.
+\end{frame}
+%
+\begin{frame}
+  To combat under fitting, we must increase $\mathcal{C}$ to encompass more possibilities. An obvious option is to expand into the \textbf{polynomial fits}:
+  $$\mathcal{C}_d = \left\{ \sum_{i=0}^{d} a_i x^i \mid a_0, a_1, \ldots, a_d \in \mathbb{R} \right\}$$
+\end{frame}
+%
+\begin{frame}
+  \begin{columns}
+    \column{.6\textwidth}
+      \begin{figure}
+        \includegraphics[scale=0.1]{overfit_polynomial}
+      \end{figure}
+    \column{.4\textwidth}
+  Here we fit by choosing from $\mathcal{C}_{50}$, fiftieth degree polynomials:
+  \end{columns}
+\end{frame}
+%
+\begin{frame}
+  \begin{figure}
+    \includegraphics[scale=0.1]{overfit_polynomial}
+  \end{figure}
+  The curve goes out of its way to stay near small clusters of data points - it is likely that \textbf{new} data will often be in different places, and hence far away from the fitted curve.
+\end{frame}
+%
+\begin{frame}
+  A measure of this defect is the \textbf{model variance}:
+  $$ \var(f) = E_{X, \mathcal{D}} \left[ (E_{\mathcal{D}}[f^*(X)] - f^*(X))^2 \right] $$
+  We say a model suffering from a high variance is \textbf{overfit}.
+\end{frame}
