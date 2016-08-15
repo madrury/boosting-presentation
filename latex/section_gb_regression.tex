@@ -254,5 +254,33 @@ Between these two extremes, different levels of subsampling generally give the s
 
 Set to $0.5$, it almost always works well.
 \end{frame}
+%
+\begin{frame}{Tuning Other Gradient Boosting Parameters}
 
+The other parameters to \texttt{GradientBoostingRegressor} are less important, but can be tuned with grid search for additional improvements in importance.
+
+\begin{itemize}
+  \item \texttt{min\_samples\_split}: Any node with less samples than this will not be considered for splitting.
+  \item \texttt{min\_samples\_leaf}: All terminal nodes must contain more samples than this.
+  \item \texttt{min\_weight\_fraction\_leaf}: Same as above, but a expressed as a fraction of the total number of training samples.
+\end{itemize}
+
+\end{frame}
+%
+\begin{frame}
+Generally these are less important because \textit{you shouldn't be growing super gigantic trees}!\\~\\
+   
+If you \textit{do} decide to include these in a grid search, \textit{be wary of overfitting to your validation set}.\\~\\
+   
+\textit{The number of model comaprisons grows exponentially in the number of parameters tuned.}
+\end{frame}
+%
+\begin{frame}{Max Features}
+There's one more parameter worth mentioning\\~\\
+
+\texttt{max\_features}: The number of features to consider for each split, as in random forest.\\~\\
+
+\textbf{Thought Exercise}: Think about how varying this parameter will influence the model.  Run some experiments to see if you're right.  Should you include this in a grid search?
+\end{frame}
+  
   
