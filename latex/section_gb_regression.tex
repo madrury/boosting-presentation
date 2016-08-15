@@ -129,8 +129,17 @@ We generally choose the number of trees minimizing the \textit{average} out vali
 \end{frame}
 %
 \begin{frame}{Tuning the Learning Rate}
-In general, a smaller learning rate results in a more accurate model in the long run
 
+The learning rate allows us to grow our boosted model slowly.\\~\\
+
+A large learning rate will cause the model to fit hard to the training data, which creates a \textit{high variance} situation.\\~\\
+
+A smaller learning rate reduces the boosted models sensitivity to the training data.\\~\\
+
+\end{frame}
+%
+\begin{frame}
+Decreasing the learning rate reduces how fast the booster drives down the training error rate
   \begin{figure}
     \includegraphics[scale=0.30]{varying-learning-rate-error}
   \end{figure}
@@ -141,7 +150,16 @@ In general, a smaller learning rate results in a more accurate model in the long
 On the other hand, a smaller learning rate means more trees are needed to reach the optimal point
 
   \begin{figure}
-    \includegraphics[scale=0.30]{varying-learning-rate-error}
+    \includegraphics[scale=0.50]{varying-learning-rate-error-testing-zoom-start}
+  \end{figure}
+  
+\end{frame}
+%
+\begin{frame}
+In general, a smaller learning rate eventually (over enough time) results in a superior model
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{varying-learning-rate-error-testing-zoom-end}
   \end{figure}
   
 \end{frame}
@@ -165,24 +183,69 @@ Make sure you've written all your analysis code up front, based on your initial 
 \end{frame}
 %
 \begin{frame}{Tuning the Tree Depth}
-A larger tree depth allows the model to capture deeper interactions between the predictors.
+A larger tree depth allows the model to capture deeper interactions between the predictors, resulting in lower bias.
 
   \begin{figure}
     \includegraphics[scale=0.3]{sin-changing-depth}
   \end{figure}
-  
 
-Unfortunately, a deeper tree depth also causes the model to fit faster, somewhat combating the effect of the learning rate.
+Unfortunately, a deeper tree depth also causes the model to fit faster, increasing the variance and somewhat combating the effect of the learning rate.
 \end{frame}
 %
 \begin{frame}
 It's never obvious up front what tree depth is best for a given problem, so a grid search is needed to determine the best value
 
   \begin{figure}
-    \includegraphics[scale=0.30]{varying-tree-depth-error}
+    \includegraphics[scale=0.50]{varying-tree-depth-error}
   \end{figure}
   
 \end{frame}
+%
+\begin{frame}
+\textbf{Strategy for Tree Depth}:
 
+Tune with a grid search and cross validation.
+  
+\end{frame}
+%
+\begin{frame}
+It's never obvious up front what tree depth is best for a given problem, so a grid search is needed to determine the best value
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{varying-tree-depth-error-zoom}
+  \end{figure}
+  
+\end{frame}
+%
+%
+\begin{frame}{Tuning the Subsample Rate}
+The \texttt{subsample} parameter allows one to train each tree on a subsample of the training data.\\~\\
+
+This is similar to bagging in the random forest algorithms, and has the same result: it lowers the variance of the resulting model.
+\end{frame}
+%
+\begin{frame}
+Not subsampling at all, or over subsampling are both bad ideas
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{varying-subsample-rate-error}
+  \end{figure}
+ 
+\end{frame}
+%
+\begin{frame}
+Between these two extremes, different levels of subsampling generally give the same performance
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{varying-subsample-rate-error-zoom-end}
+  \end{figure}
+  
+\end{frame}
+%
+\begin{frame}
+\textbf{Strategy For Subsample:}
+
+Set to $0.5$, it almost always works well.
+\end{frame}
 
   

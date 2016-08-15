@@ -1,7 +1,7 @@
 \section{You Could Have Invented Gradient Boosting}
 %
 \begin{frame}
-Let's start with our basic setup.\\~\\
+Let's start with our usual basic setup.\\~\\
 
 $\{ x_i, y_i \}$ is a data set, where $i$ indexes the samples we have available for training our model.\\~\\
 
@@ -9,7 +9,7 @@ Each $x_i$ may be a vector, in which case I'll refer to it's components (if need
 \end{frame}
 %
 \begin{frame}
-Our goal is to construct a function $f$ so that, approximately
+Our goal is to construct a function $f$ so that
 
 $$ y_i \approx f(x_i) \ \text{for all} \ i $$
 
@@ -20,9 +20,11 @@ $$ y_i \approx f(x_i) \ \text{for all} \ i $$
 \end{frame}
 %
 \begin{frame}
-\textbf{Degenerate Choice:} $\text{Domain}(f) = \{x_i\}$.\\~\\
+\textbf{Degenerate Choice:} 
 
-That is, let's only attempt to define $f$ on our training sample.
+$$\text{Domain}(f) = \{x_i\}$$.
+
+That is, let's only attempt to define $f$ on our training samples.
 \end{frame}
 %
 \begin{frame}
@@ -40,22 +42,35 @@ But let's try to derive this in a creative way.
 \end{frame}
 %
 \begin{frame}
-\textbf{Recall}: Gradient descent is a general purpose algorithm for optimizing any objective function $L(x)$.
 
-\textbf{Algorithm:} Gradient Descent to Minimize a function $L$.
+\only<1>{
+\textbf{Recall}: Gradient descent is a general purpose algorithm for optimizing any objective function $L(x)$.\\~\\
+
+  \begin{center}
+    \textit{How does this go?}
+  \end{center}
+}
+
+\only<2>{
+\textbf{Algorithm:} Gradient Descent to Minimize a function $L$.\\~\\
+
+\textbf{Inputs:} A function $f$.
+
+\textbf{Outputs:} A point $x_{\text{optim}}$ that minimizes $f$. \\~\\
 
 \begin{itemize}
   \item Compute $\nabla L(x)$ somehow, on paper is good.
-  \item Initialize $x_0 = 0$ (for example, there may be more principled choices).
-  \item Until satisfied, iterate: \begin{itemize}
+  \item Initialize $x_0 = 0$ (arbitrary, there may be more principled choices).
+  \item Iterate until convergence: \begin{itemize}
     \item Set $x_{i+1} = x_i - \nabla L(x_i)$.
   \end{itemize}
 \end{itemize}
+}
 
 \end{frame}
 %
 \begin{frame}
-Let's focus on a single point in our domain, and stick with the classic squared error loss function
+Let's focus on a \textit{single point in our domain}, and try to minimize the classic squared error loss function
 
 $$ L(f, y) = \frac{1}{2} (y - f)^2 $$
 
@@ -63,22 +78,24 @@ Here $f$ is not a function yet, it is just a number.
 \end{frame}
 %
 \begin{frame}
-Following the gradient descent recipe for optimizing this loss function, let's initialize $f$ to the average value of $y_i$
+Initialize $f$ to the average value of $y_i$
 
 $$ f_0 = \frac{1}{N} \sum_i y_i $$
 \end{frame}
 %
 \begin{frame}
-And compute the gradient with respect to $f$ by hand
+Compute the gradient with respect to $f$ by hand
 
-$$ \nabla_{f} (f, y) = \frac{\partial}{\partial f} \frac{1}{2} (y - f)^2 = f - y $$
+$$ \nabla_{f} (f, y) = \frac{\partial}{\partial f} \left( \frac{1}{2} (y - f)^2 \right) = f - y $$
 \end{frame}
 %
 \begin{frame}
 ...and apply the update rule
 
 $$ f_1 = f_0 - \nabla_{f} (f_0, y) = f_0 - (f_0 - y) = y $$
-
+\end{frame}
+%
+\begin{frame}
 So this (admittedly quite bizarre) application of gradient descent immediately recovers the correct solution
 
 $$ f(x_i) = y_i $$
@@ -87,31 +104,50 @@ for every data point.
 \end{frame}
 %
 \begin{frame}
+
 \begin{center}
- What is stopping up from applying this scheme in the more realistic situation where we want to construct a function $f$ with domain $\mathbb{R}^n$ so that
+\textbf{Question:}\\~\\
+
+What is stopping up from applying this scheme in the more realistic situation where we want to construct a function $f$ with domain $\mathbb{R}^n$ so that
 \end{center}
 
 $$ f(x_i) \approx y_i $$
 \end{frame}
 %
 \begin{frame}
-The \textbf{first step works}, we can certainly define $f_0$ to be the constant function
+The \textbf{first step works}, we can certainly define $f_0$ to be a constant function
 
-$$ f(x) = \frac{1}{N} \sum_i y_i \ \text{for all} \ x \in \mathbb{R}^n $$
+$$ f_0(x) = \frac{1}{N} \sum_i y_i \ \text{for all} \ x \in \mathbb{R}^n $$
 \end{frame}
 %
 \begin{frame}
-The \textbf{update step fails}, we cannot evaluate the gradient at any point where we have not observed a value of $y$.
+The \textbf{update step fails}.\\~\\
+
+We cannot evaluate the gradient at any point where we have not observed a value of $y$.
 
 $$ \nabla_f (f, y) = f - y $$
 \end{frame}
 %
 \begin{frame}
-\textbf{Solution:} Fit a simple model to the new dataset
+
+\begin{center}
+{\huge We need to extend the gradient to points where we have not observed a value of $y$.}
+\end{center}
+
+\end{frame}
+
+%
+\begin{frame}
+\textbf{Fundamental Idea Of Gradient Boosting:}\\~\\
+
+Replace the response $y$ in our dataset with the \textbf{gradient of the loss evaluated at} $y$
 
 $$ \{x_i, \nabla_f L(f_0(x_i), y_i) \} = \{x_i, f_0(x_i) - y_i \} $$
 
-The \textbf{predictions from this model} can be viewed as an extension of the gradient to all of $\mathbb{R}^n$.
+Then, fit a model to this new \textbf{working response}.\\~\\
+
+The \textbf{predictions from this model} can be viewed as an (approximate) extension of the gradient to all of $\mathbb{R}^n$.
+
 \end{frame}
 %
 \begin{frame}
@@ -135,15 +171,22 @@ The \textbf{predictions from this model} can be viewed as an extension of the gr
 \begin{frame}
 \textbf{Comments:}
 
+\only<2->{
 \begin{itemize}
   \item We didn't \textit{have} to use decision trees, literally anything would work.
+}
+\only<3->{
   \item Just like in other algorithms, we can introduce a \textit{learning rate} to make the gradient descent more robust
   $$ x_{i+1} = x_i - \lambda \nabla L(x_i) $$
 This is particularly important in boosting, to prevent overfitting.
+}
+\only<4->{
   \item We could have fit the tree to the negative gradient, which would have resulted in the more aesthetically appealing
   $$ f_{\text{max}}(x) = f_0(x) + T_1(x) + T_2(X) + \cdots + T_{\text{max}}(x) $$
+}
+\only<2->{
 \end{itemize}
-
+}
 \end{frame}
 
 

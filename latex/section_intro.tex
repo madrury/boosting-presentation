@@ -4,8 +4,8 @@
   Boosting encompasses a highly successful set of learning algorithms.
   
   \begin{itemize}
-    \item Allstate has held three Kaggle competitions.  All three were won by algorithms incorporating gradient boosting as a fundamental component.
-    \item In the 1990's the insurance industry discovered that incorporating consumers credit information into pricing greatly increased the accuracy of prices, this revolutionized the industry.  Using a boosted model in place of a linear model when setting prices gives roughly the same increase in power.
+    \uncover<2->{ \item Allstate has held three Kaggle competitions.  All three were won by algorithms incorporating gradient boosting as a fundamental component. }
+    \uncover<3->{ \item In the 1990's insurance company's discovered that incorporating consumers credit information into pricing greatly increased the accuracy of prices, which revolutionized the industry.  Using a boosted model in place of a (generalized) linear model when setting prices gives roughly the same increase in predictive power. }
   \end{itemize}
 \end{frame}
 %
@@ -40,4 +40,40 @@ At each stage of the growth, the next model is built as an adjustment to the pre
   \begin{figure}
     \includegraphics[scale=0.50]{boosting-over-time-single-plot}
   \end{figure}
+\end{frame}
+%
+\begin{frame}
+
+\only<1-3>{  
+\textbf{Compared to}:\\~\\
+}
+
+\only<1>{
+\textbf{Linear Models}: \\~\\
+Lowers variance by using a regularization penalty.
+
+Lowers bias by including more predictors.
+}
+
+\only<2>{
+\textbf{Random Forest}: \\~\\
+Lowers variance by growing many learners on different subsamples of the data and predictors, then averaging them.  
+
+Lowers bias by growing really big trees.
+}
+
+\only<3>{
+\textbf{SVM}: \\~\\
+Lowers variance by maximizing the margin between positive and negative cases.  
+
+Lowers bias by using a kernel, which projects the data into a very high dimensional space.
+}
+
+\only<4>{
+\textbf{Boosting}: \\~\\
+Lowers variance by growing the model slowly over time (along with a few other tricks).  
+
+Lowers bias by stacking many non-parametric models into the final result.
+}
+
 \end{frame}
