@@ -10,24 +10,6 @@ from sklearn.ensemble import GradientBoostedRegressor
 \end{frame}
 %
 \begin{frame}[fragile]
-
-\texttt{GradientBoostingRegressor} has many knobs to turn.\\~\\
-
-\begin{lstlisting}[language=python]
-GradientBoostingRegressor(loss='ls', 
-                          learning_rate=0.1, 
-                          n_estimators=100, 
-                          subsample=1.0, 
-                          min_samples_split=2, 
-                          min_samples_leaf=1, 
-                          min_weight_fraction_leaf=0.0,
-                          max_depth=3,
-                          ...)
-\end{lstlisting}
-
-\end{frame}
-%
-\begin{frame}[fragile]
 A \texttt{GradientBoostingRegressor} object is fit in the same way as every other leaning model in sklearn\\~\\
 
 \begin{lstlisting}[language=python]
@@ -48,7 +30,25 @@ Especially useful is the iterator \texttt{staged\_predict} which creates predict
 
 \begin{lstlisting}[language=python]
 for preds in model.staged_predict(X_new):
-    # Do something interesting, see the plots below.
+    # Do something interesting, used heavily in the plots to follow.
+\end{lstlisting}
+
+\end{frame}
+%
+\begin{frame}[fragile]
+
+\texttt{GradientBoostingRegressor} has many knobs to turn.\\~\\
+
+\begin{lstlisting}[language=python]
+GradientBoostingRegressor(loss='ls',
+                          n_estimators=100, 
+                          learning_rate=0.1,
+                          max_depth=3,
+                          subsample=1.0, 
+                          min_samples_split=2, 
+                          min_samples_leaf=1, 
+                          min_weight_fraction_leaf=0.0,
+                          ...)
 \end{lstlisting}
 
 \end{frame}
@@ -179,8 +179,9 @@ In general, a smaller learning rate eventually (over enough time) results in a s
 
 Run the final model overnight!  It will fit while you are sleeping!\\~\\
 
-Make sure you've written all your analysis code up front, based on your initial models.  Then all that's left is to run your final model through and see your final statistics.
+Make sure you've written all your analysis code up front, based on your initial models.  Then all that's left is to run your final model through and see your final plots and statistics.
 \end{frame}
+
 %
 \begin{frame}{Tuning the Tree Depth}
 A larger tree depth allows the model to capture deeper interactions between the predictors, resulting in lower bias.
@@ -189,7 +190,15 @@ A larger tree depth allows the model to capture deeper interactions between the 
     \includegraphics[scale=0.3]{sin-changing-depth}
   \end{figure}
 
-Unfortunately, a deeper tree depth also causes the model to fit faster, increasing the variance and somewhat combating the effect of the learning rate.
+\end{frame}
+%
+\begin{frame}
+Unfortunately, a deeper tree depth also
+
+\begin{itemize}
+  \item Causes the model to fit faster, increasing the variance and somewhat combating the effect of the learning rate.
+  \item Allows the model to assume a more complex for at the same number of trees.  This is a blessing (low bias) and curse (high variance).
+\end{itemize}
 \end{frame}
 %
 \begin{frame}
@@ -202,14 +211,6 @@ It's never obvious up front what tree depth is best for a given problem, so a gr
 \end{frame}
 %
 \begin{frame}
-\textbf{Strategy for Tree Depth}:
-
-Tune with a grid search and cross validation.
-  
-\end{frame}
-%
-\begin{frame}
-It's never obvious up front what tree depth is best for a given problem, so a grid search is needed to determine the best value
 
   \begin{figure}
     \includegraphics[scale=0.50]{varying-tree-depth-error-zoom}
@@ -217,6 +218,12 @@ It's never obvious up front what tree depth is best for a given problem, so a gr
   
 \end{frame}
 %
+\begin{frame}
+\textbf{Strategy for Tree Depth}:
+
+Tune with a grid search and cross validation.
+  
+\end{frame}
 %
 \begin{frame}{Tuning the Subsample Rate}
 The \texttt{subsample} parameter allows one to train each tree on a subsample of the training data.\\~\\
