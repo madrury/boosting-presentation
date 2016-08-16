@@ -53,11 +53,13 @@ Gradient boosted logistic regression makes short work of it.
 \begin{frame}
 Recall our friend logistic regression.
 
-$$ \hat \beta = \argmin_{\beta} \sum_i \left( y_i \nu(\beta, x_i) + \log(1 + e^{\nu(\beta, x_i)}) \right) $$
+$$ \hat \beta = \argmin_{\beta} \sum_i \left( y_i \nu(\beta, x_i) - \log(1 + e^{\nu(\beta, x_i)}) \right) $$
 
-Where $\nu(\beta, x_i) = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_{M} x_{iM}$ (called the \textit{linear predictor}).\\~\\
+Where $\nu(\beta, x_i) = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_{M} x_{iM}$.\\~\\ 
 
-This can be solved with gradient descent.
+The quantity $\nu$ is called the \textit{linear predictor}.\\~\\
+
+In logistic regression it represents the \textit{log odds} of the outcome.
 \end{frame}
 %
 \begin{frame}
@@ -66,14 +68,25 @@ Once we have solved for $\hat \beta$, we can make predictions using
 $$p(x) = \frac{1}{1 + e^{-(\hat \beta_0 + \hat \beta_1 x_1 + \cdots + \hat \beta_M x_M)}}$$
 
 The predictions can interpreted as \textit{the conditional probability that $y = 1$, given the values of $x$}.
+
+$$ p(x) = Pr(y = 1 \mid x) $$
 \end{frame}
 %
 \begin{frame}
 The function we are minimizing in logistic regression is called the \textit{logistic loss}:
 
-$$ L(f, y) = y f + \log(1 + e^{f}) $$
+$$ L(f, y) = y f - \log(1 + e^{f}) $$
 
-% Graph of logistic loss.
+  \begin{figure}
+    \includegraphics[scale=0.42]{loss-function-logistic}
+  \end{figure}
+  
+\end{frame}
+%
+\begin{frame}
+  \begin{center}
+    \textbf{Logistic regression can be solved with gradient descent.}
+  \end{center}
 \end{frame}
 %
 \begin{frame}
@@ -94,7 +107,7 @@ $$ L(f, y) = \frac{1}{2} \left(f - y \right)^2 $$
 
 With the logistic loss
 
-$$ L(f, y) = y f + \log(1 + e^f) $$
+$$ L(f, y) = y f - \log(1 + e^f) $$
 
 And then use the same gradient boosting technique.
 
@@ -116,7 +129,7 @@ model.fit(X, y)
 \end{frame}
 %
 \begin{frame}[fragile]
-The options to \texttt{GradientBoostingClassifier} are the same as those to \texttt{GradientBoostingRegressor}
+The options to \texttt{GradientBoostingClassifier} are the same as those to \texttt{GradientBoostingRegressor}\\~\\
 
 \begin{lstlisting}[language=python]
 GradientBoostingClassifier(loss='deviance',
@@ -156,9 +169,12 @@ model.fit(X, y)
 \begin{frame}
 The Adaboost algorithm uses labels $y \in \{-1, 1\}$ and minimizes the loss function
 
-$$ L(f, y) = \exp(y f) $$
+$$ L(f, y) = \exp( - y f) $$
 
-% Picture of exponential loss
+  \begin{figure}
+    \includegraphics[scale=0.42]{loss-function-adaboost}
+  \end{figure}
+
 \end{frame}
 %
 \begin{frame}
@@ -185,7 +201,14 @@ In fact, the classification boundaries are \textit{the same}
     \end{figure}
   \end{columns}
   
+\end{frame}
+%
+\begin{frame}
 On the other hand, logistic boosting generally returns better calibrated probabilities, and is less sensitive to outliers.
+
+  \begin{figure}
+    \includegraphics[scale=0.45]{loss-function-comparison}
+  \end{figure}
   
 \end{frame}
 %

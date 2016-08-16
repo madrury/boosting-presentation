@@ -5,4 +5,4 @@
 \beamer@sectionintoc {4}{Practical Gradient Boosted Regression}{42}{0}{4}
 \beamer@sectionintoc {5}{Interpreting Gradient Boosting}{72}{0}{5}
 \beamer@sectionintoc {6}{Other Gradient Boosting Algorithms}{89}{0}{6}
-\beamer@sectionintoc {7}{Final Words About Boosting}{118}{0}{7}
+\beamer@sectionintoc {7}{Final Words About Boosting}{120}{0}{7}
