@@ -1,0 +1,32 @@
+\section{Final Words About Boosting}
+
+\begin{frame}
+Gradient Boosting is the best off-the-shelf learning algorithm available today.\\~\\
+It effortlessly produces accurate models.\\~\\
+\end{frame}
+%
+\begin{frame}
+Nonetheless, it has drawbacks.
+\end{frame}
+%
+\begin{frame}{Drawbacks of Gradient Boosting}
+\begin{itemize}
+
+\only<1>{
+  \item Boosting creates very complex models.  It can be difficult to extract intuitive, conceptual, or inferential information from them.
+}
+
+\only<2>{
+  \item Boosting is difficult to explain (maybe you just learned this through experience).  It can be hard to convince business leader to accept such a black box model.
+}
+
+\only<3>{
+  \item Boosted models can be difficult to implement in production environments due to their complexity.
+}
+
+\only<4>{
+  \item The sequential nature of the standard boosting algorithm makes it very difficult to parallelize (compared to, for example, random forest).  Recently, there has been great progress (xgboost).
+}
+
+\end{itemize}
+\end{frame}
