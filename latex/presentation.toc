@@ -4,3 +4,4 @@
 \beamer@sectionintoc {3}{You Could Have Invented Gradient Boosting}{18}{0}{3}
 \beamer@sectionintoc {4}{Practical Gradient Boosted Regression}{42}{0}{4}
 \beamer@sectionintoc {5}{Interpreting Gradient Boosting}{72}{0}{5}
+\beamer@sectionintoc {6}{Other Gradient Boosting Algorithms}{89}{0}{6}
