@@ -1,12 +1,7 @@
 \section{Introduction to Boosting}
 %
 \begin{frame}
-  Boosting encompasses a highly successful set of learning algorithms.
-  
-  \begin{itemize}
-    \uncover<2->{ \item Allstate has held three Kaggle competitions.  All three were won by algorithms incorporating gradient boosting as a fundamental component. }
-    \uncover<3->{ \item In the 1990's insurance company's discovered that incorporating consumers credit information into pricing greatly increased the accuracy of prices, which revolutionized the industry.  Using a boosted model in place of a (generalized) linear model when setting prices gives roughly the same increase in predictive power. }
-  \end{itemize}
+  Boosting encompasses an entire family highly successful learning algorithms.
 \end{frame}
 %
 \begin{frame}
@@ -44,36 +39,37 @@ At each stage of the growth, the next model is built as an adjustment to the pre
 %
 \begin{frame}
 
-\only<1-3>{  
+\only<2->{  
 \textbf{Compared to}:\\~\\
 }
 
 \only<1>{
+\textbf{Boosting}: \\~\\
+Lowers variance by growing the model slowly over time (along with a few other tricks).\\~\\
+
+Lowers bias by stacking many non-parametric models into the final result.
+}
+
+\only<2>{
 \textbf{Linear Models}: \\~\\
-Lowers variance by using a regularization penalty.
+Lowers variance by using a regularization penalty.\\~\\
 
 Lowers bias by including more predictors.
 }
 
-\only<2>{
-\textbf{Random Forest}: \\~\\
-Lowers variance by growing many learners on different subsamples of the data and predictors, then averaging them.  
-
-Lowers bias by growing really big trees.
-}
-
 \only<3>{
 \textbf{SVM}: \\~\\
-Lowers variance by maximizing the margin between positive and negative cases.  
+Lowers variance by maximizing the margin between positive and negative cases.\\~\\ 
 
 Lowers bias by using a kernel, which projects the data into a very high dimensional space.
 }
 
 \only<4>{
-\textbf{Boosting}: \\~\\
-Lowers variance by growing the model slowly over time (along with a few other tricks).  
+\textbf{Random Forest}: \\~\\
 
-Lowers bias by stacking many non-parametric models into the final result.
+Lowers variance by growing many learners on different subsamples of the data and predictors, then averaging them.\\~\\
+
+Lowers bias by growing really big trees.
 }
 
 \end{frame}

@@ -62,6 +62,10 @@ It is traditional to normalize the importances so that they sum to $100$.
 \only<4>{
     \item Make sure your model only includes trees \textit{up to the optimal point}.  Otherwise you'll allocate importance to overfitting.
 }
+
+\only<5>{
+    \item Dominant features should be treated with suspicion.  They can often be a sign of data leakage.
+}
 \end{itemize}
 \end{frame}
 %

@@ -99,12 +99,31 @@ One way to tune the numer of trees is to make use of a validation set, held out 
 The \texttt{loss\_} method is important here, it allows us to compute the loss function on held out data\\~\\
 
 \begin{lstlisting}[language=python]
-validation_loss = np.zeros(model.get_params('n_estimators'))
-for i, preds in enumerate(model.staged_predict(X_new)):
-    validation_loss[i] = model.loss_(preds, y_new)
-    
-optimal_tree = np.argmin(validation_loss)
-optimal_loss = validation_loss[optimal_tree]
+def get_optimal_n_estimators(model, X_new, y_new):
+    validation_loss = np.zeros(
+        model.get_params('n_estimators'))
+    for i, preds in enumerate(model.staged_predict(X_new)):
+        validation_loss[i] = model.loss_(preds, y_new)    
+    optimal_tree = np.argmin(validation_loss)
+    optimal_loss = validation_loss[optimal_tree]
+    return optimal_tree, optimal_loss
+\end{lstlisting}
+
+\end{frame}
+%
+\begin{frame}[fragile]
+One the optimal number of estimators is known, it's useful to truncate the model\\~\\
+
+\begin{lstlisting}[language=python]
+from copy import deepcopy
+
+def truncate_boosted_model(model, n_estimators):
+    new_model = deepcopy(model)
+    # Two dimensions here for the case of multiple classes
+    # in a GradientBoostedClassifier.
+    new_model.estimators_ = model.estimators_[:n_estimators, :]
+    new_model.n_estimators = n_estimators
+    return new_model
 \end{lstlisting}
 
 \end{frame}
@@ -176,6 +195,7 @@ In general, a smaller learning rate eventually (over enough time) results in a s
 \end{frame}
 %
 \begin{frame}
+\textbf{General Advice:}\\~\\
 
 Run the final model overnight!  It will fit while you are sleeping!\\~\\
 
@@ -193,7 +213,7 @@ A larger tree depth allows the model to capture deeper interactions between the 
 \end{frame}
 %
 \begin{frame}
-Unfortunately, a deeper tree depth also
+A deeper tree depth also
 
 \begin{itemize}
   \item Causes the model to fit faster, increasing the variance and somewhat combating the effect of the learning rate.
@@ -228,7 +248,7 @@ Tune with a grid search and cross validation.
 \begin{frame}{Tuning the Subsample Rate}
 The \texttt{subsample} parameter allows one to train each tree on a subsample of the training data.\\~\\
 
-This is similar to bagging in the random forest algorithms, and has the same result: it lowers the variance of the resulting model.
+This is similar to bagging in the random forest algorithm, and has the same result: it lowers the variance of the resulting model.
 \end{frame}
 %
 \begin{frame}
@@ -250,9 +270,11 @@ Between these two extremes, different levels of subsampling generally give the s
 \end{frame}
 %
 \begin{frame}
-\textbf{Strategy For Subsample:}
+\textbf{Strategy For Subsample:}\\~\\
 
-Set to $0.5$, it almost always works well.
+Set to $0.5$, it almost always works well.\\~\\
+
+If you have a massive amount of data and want the model to fit more quickly, decrease this value.
 \end{frame}
 %
 \begin{frame}{Tuning Other Gradient Boosting Parameters}
@@ -269,10 +291,14 @@ The other parameters to \texttt{GradientBoostingRegressor} are less important, b
 %
 \begin{frame}
 Generally these are less important because \textit{you shouldn't be growing super gigantic trees}!\\~\\
-   
+
+\only<2->{
 If you \textit{do} decide to include these in a grid search, \textit{be wary of overfitting to your validation set}.\\~\\
-   
+}
+
+\only<3->{
 \textit{The number of model comaprisons grows exponentially in the number of parameters tuned.}
+}
 \end{frame}
 %
 \begin{frame}{Max Features}
@@ -280,7 +306,7 @@ There's one more parameter worth mentioning\\~\\
 
 \texttt{max\_features}: The number of features to consider for each split, as in random forest.\\~\\
 
-\textbf{Thought Exercise}: Think about how varying this parameter will influence the model.  Run some experiments to see if you're right.  Should you include this in a grid search?
+\textbf{Exercise}: Think about how varying this parameter will influence the model.  Run some experiments to see if you're right.  Should you include this in a grid search?
 \end{frame}
   
   
