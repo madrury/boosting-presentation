@@ -1,8 +1,7 @@
 \beamer@endinputifotherversion {3.33pt}
-\beamer@sectionintoc {1}{Introduction to Boosting}{2}{0}{1}
-\beamer@sectionintoc {2}{Outline of the Lesson}{13}{0}{2}
-\beamer@sectionintoc {3}{You Could Have Invented Gradient Boosting}{16}{0}{3}
-\beamer@sectionintoc {4}{Practical Gradient Boosted Regression}{40}{0}{4}
-\beamer@sectionintoc {5}{Interpreting Gradient Boosting}{73}{0}{5}
-\beamer@sectionintoc {6}{Other Gradient Boosting Algorithms}{91}{0}{6}
-\beamer@sectionintoc {7}{Final Words About Boosting}{122}{0}{7}
+\beamer@sectionintoc {1}{Outline of the Lesson}{12}{0}{1}
+\beamer@sectionintoc {2}{Boosting To Residuals}{15}{0}{2}
+\beamer@sectionintoc {3}{Practical Gradient Boosted Regression}{55}{0}{3}
+\beamer@sectionintoc {4}{Interpreting Gradient Boosting}{88}{0}{4}
+\beamer@sectionintoc {5}{Other Gradient Boosting Algorithms}{106}{0}{5}
+\beamer@sectionintoc {6}{Final Words About Boosting}{137}{0}{6}
