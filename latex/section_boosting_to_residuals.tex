@@ -5,9 +5,9 @@ Let's start with our usual basic setup.\\~\\
 
 $\{ x_i, y_i \}$ is a data set, where $i$ indexes the samples we have available for training our model.\\~\\
 
-Each $x_i$ may be a vector, in which case I'll refer to it's components (if needed) as $x_{ij}$.
+Each $x_i$ may be a vector, in which case I'll refer to it's components (if needed) as $x_{ij}$.\\~\\
 
-If needed, $N$ will be the number of sample, and $M$ the number of predictors.
+If needed, $N$ will be the number of training samples, and $M$ the number of features.
 \end{frame}
 %
 
@@ -29,7 +29,7 @@ is small.
 %
 
 \begin{frame}
-As we saw in the previous section, we would like to build up $f$ in stages, making small adjustments as we go along.
+As we saw in the introduction, we would like to build up $f$ in stages, making small adjustments as we go along.
 
   \begin{figure}
     \includegraphics[scale=0.40]{boosting-over-time-multiple-plots}
@@ -39,7 +39,7 @@ As we saw in the previous section, we would like to build up $f$ in stages, maki
 %
 
 \begin{frame}
-So in the end, $f$ will be a sum of smaller (often called \textit{weak}) learners
+In the end, $f$ will be a sum of smaller (often called \textit{weak}) learners
 
 $$ f(x) = f_0(x) + f_1(x) + f_2(x) + \cdots + f_{\text{max}}(x) $$
 
@@ -101,6 +101,15 @@ Intuitively, it's obvious what we should do
 
 \begin{frame}
 But how can we use \textit{the data} to tell us this?  We won't always have the luxury of such simple pictures.
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{zeroth-boosting-stage-what-to-do}
+  \end{figure}
+  
+\end{frame}
+%
+\begin{frame}
+Take a moment to think: how is the data is telling us what to do?
 
   \begin{figure}
     \includegraphics[scale=0.50]{zeroth-boosting-stage-what-to-do}
@@ -269,7 +278,7 @@ Instead of adding in the entirety of the residual fitted tree during an update
 
 $$ S_{k+1}(x) = S_{k}(x) + f_{k+1}(x) $$
 
-Instead we added some \textit{fraction} of $f_{k+1}$
+Instead we added some \textit{small fraction} of $f_{k+1}$
 
 $$ S_{k+1}(x) = S_{k}(x) + \lambda f_{k+1}(x) $$
 \end{frame}
@@ -323,6 +332,8 @@ $$ S_{k+1}(x_i) = S_{k}(x_i) + \lambda (y_i - S_{k}(x_i)) $$
 \begin{frame}
 Removing the details of the specific situation, this looks like
 
+$$ S_{k+1}(x_i) = S_{k}(x_i) + \lambda (y_i - S_{k}(x_i)) $$
+$$ \Downarrow $$
 $$ \xi_{k+1} = \xi_k + \lambda (y - \xi_k) $$
 
 \textbf{Question:} Does this look... familiar?

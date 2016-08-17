@@ -25,7 +25,10 @@ The \texttt{predict} method returns predictions on new data\\~\\
 \begin{lstlisting}[language=python]
 preds = model.predict(X_new)
 \end{lstlisting}
+\end{frame}
+%
 
+\begin{frame}[fragile]
 Especially useful is the iterator \texttt{staged\_predict} which creates predictions from models created by truncating series of trees\\~\\
 
 \begin{lstlisting}[language=python]

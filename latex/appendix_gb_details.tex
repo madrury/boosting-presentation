@@ -1,0 +1,139 @@
+\section{Appendix: Generalizing the Algorithm}
+
+\begin{frame}
+Recall the boosting algorithm
+
+\textbf{Algorithm:} Gradient Boosting to Minimize Sum of Squared Errors.\\~\\
+
+\textbf{Inputs:} A data set $\{ x_i, y_i \}$.
+
+\textbf{Returns:} A function $f$ such that $f(x_i) \approx y_i$, minimizing least squared errors.
+
+\begin{itemize}
+  \item Initialize $f_0(x) = \frac{1}{N} \sum_i y_i$.
+  \item Iterate (parameter $k$) until satisfied: \begin{itemize}
+    \item Create the working data set $W_k = \{ x_i, y_i - f_k(x_i) \}$.
+    \item Fit a decision tree to $W_k$, minimizing least squares (though most anything would work here).  Call this tree $T_k$.
+    \item Set $f_{k+1}(x) = f_{k}(x) + T_{k}(x)$. 
+  \end{itemize}
+  \item Return $f_{\text{max}}(x) = f_0(x) + T_1(x) + T_2(X) + \cdots + T_{\text{max}}(x)$.
+\end{itemize}
+\end{frame}
+%
+\begin{frame}
+
+Remember how we got here. \\~\\
+
+We are trying to minimize least squared loss $L(f, y) = \frac{1}{2}(y - f)^2$.\\~\\
+
+The gradient is $L(f, y) = f - y$.
+\end{frame}
+%
+\begin{frame}
+So maybe this works...
+\end{frame}
+%
+\begin{frame}
+\begin{itemize}
+  \item Initialize $f_0(x) = \frac{1}{N} \sum_i y_i$.
+  \item Iterate (parameter $k$) until satisfied: \begin{itemize}
+    \item Create the working data set $W_k = \{ x_i, - \nabla_f L(f(x_i), y) \}$.
+    \item Fit a decision tree to $W_k$, minimizing least squares (though most anything would work here).  Call this tree $T_k$.
+    \item Set $f_{k+1}(x) = f_{k}(x) + T_{k}(x)$. 
+  \end{itemize}
+  \item Return $f_{\text{max}}(x) = f_0(x) + T_1(x) + T_2(X) + \cdots + T_{\text{max}}(x)$.
+\end{itemize}
+
+Close, but not quite...
+\end{frame}
+%
+\begin{frame}
+\textbf{Improvement One}:\\~\\
+
+We chose to initialize to the average value of $y_i$ because it is the constant that minimized least squares.
+
+Now that we have a different loss function, there's probably a better choice.\\~\\
+\end{frame}
+%
+\begin{frame}
+\textbf{Improvement One}:\\~\\
+
+Initialize $f_0(x)$ to the constant $\mu$ minimizing $\sum_i L(\mu, y_i)$.
+\end{frame}
+%
+\begin{frame}
+\textbf{Improvement Two}: (Really the same improvement as one)\\~\\
+
+In our update step we added the fit tree directly $f_{k+1}(x) = f_{k}(x) + T_{k}(x)$.\\~\\
+
+The predictions from a regression tree are the \textit{average of of the response in the terminal nodes}.\\~\\
+
+This happened to be the minimizer of the loss function (least squares) for those sample laying in some terminal node.
+\end{frame}
+%
+\begin{frame}
+\textbf{Improvement Two}:\\~\\
+
+Better not to directly add the value that minimizes the loss function we care about.\\~\\
+
+For each $x$ in a terminal node $R$, set $f_{k+1}(x) = f_k(x) + \mu$, where $\mu$ is chosen to minimize the loss function over all those training samples that lie in $R$:
+
+$$ \mu = \argmin_t \sum_{x_i \in R} L(y_i, f_k(x_i) + t) $$
+\end{frame} 
+
+
+%-------------------
+\section{Appendix: Gradient Boosted Logistic Regression Derivation}
+
+\begin{frame}
+Let's follow through our derivation of boosting and see what we get.
+\end{frame}
+%
+\begin{frame}
+\textbf{Question One}: How to initialize $f_0$?\\~\\
+
+For squared error minimization, we initialized to the average value of $y_i$.
+
+\begin{center}
+\textit{Wait, why did we do that?}
+\end{center}
+
+\end{frame}
+%
+\begin{frame}
+The average of $y_i$ is the \textit{constant} $\mu$ that minimizes the sum of squared errors.\\~\\
+
+\begin{center}
+    $\frac{1}{N} \sum_i y_i$ is the constant that minimizes
+\end{center}
+
+$$ \sum_i \left( y_i - \mu \right)^2 = \sum_i L(\mu, y_i) $$
+\end{frame}
+%
+\begin{frame}
+Ok, so maybe we should do the same thing here?
+
+$$ f_0 = \argmin_{\mu} \sum_i L(\mu, y_i) = \sum_i \left( y_i \mu + \log(1 + e^{\mu}) \right) $$
+
+\textbf{Question}: What is the minimizer (hint, what happens if you put \textit{only} an intercept in logistic regression)?
+
+\end{frame}
+%
+\begin{frame}
+The minimizer is the \textit{sample log odds}:
+
+$$ f_0 = log \left( \frac{\frac{1}{N}\sum_i y_i}{1 - \frac{1}{N}\sum_i y_i } \right) $$ 
+\end{frame}
+%
+\begin{frame}
+\textbf{Question Two}: What's the gradient?\\~\\
+
+$$ \nabla_f L(f, y) = \nabla_f \left( y f + \log(1 + e^f) \right) = y + \frac{e^f}{1 + e^f} $$
+
+That last term is familiar...
+
+$$ \frac{e^f}{1 + e^f} = p$$
+
+Where $p$ is the probability associated with the log-odds $f$.
+\end{frame}
+

@@ -114,6 +114,19 @@ And then use the same gradient boosting technique.
 \end{frame}
 %
 \begin{frame}
+The gradient of the logistic loss is
+
+\begin{align*}
+\nabla_f L(f, y) &= \frac{\partial}{\partial f} \left( y f - \log(1 + e^f) \right) \\
+&= y - \frac{e^f}{1 + e^f} \\
+&= y - p(f)
+\end{align*}
+
+So we can interpret this method as "boosting to the residual probabilities".
+\end{frame}
+%
+
+\begin{frame}
 \textbf{Note:} There are some subtleties.  I've included the details in an appendix.
 \end{frame}
 %
@@ -222,10 +235,13 @@ Originally (before the invention of gradient boosting), Adaboost was accomplishe
 The traditional Adaboost is included in sklearn as \texttt{AdaBoostClassifier}\\~\\
 
 \begin{lstlisting}[language=python]
-model = AdaBoostClassifier(loss='exponential')
+model = AdaBoostClassifier()
 model.fit(X, y)
 \end{lstlisting}
+
+Traditional Adaboost always uses trees of depth $1$ (often playfully called "stumps", so there is no \texttt{max\_depth} argument.
 \end{frame}
+
 %
 \begin{frame}[fragile]
 Traditional Adaboost is outclassed by gradient boosting, but retains historical and mathematical significance
