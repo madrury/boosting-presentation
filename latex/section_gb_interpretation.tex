@@ -47,16 +47,17 @@ It is traditional to normalize the importances so that they sum to $100$.
 \only<1>{
     \item The name "feature importances" is pretty awful.  It invites misinterpretation.  
     \begin{center}
-    \textit{Don't reason about things from their names, make sure the statistic actually answers your question}.
+    \textit{Don't reason about things from the names they have been given, make sure the statistic actually answers your question}.
     \end{center}
 }
 
 \only<2>{
-    \item If your model contains both numeric and binary predictors, the importance metric is biased to assign higher values to the numeric predictors (do you see why?).  Try not to compare feature importances across these two classes.
+    \item If your model contains both numeric and binary predictors, the importance metric is biased to assign higher values to the numeric predictors.  Try not to compare feature importances across these two classes.
 }
 
 \only<3>{
-    \item Feature importance rankings can have very high variance.  Make sure any important conclusions are robust to different RNG seeds and training sets.
+    \item Feature importance rankings can have very high variance.  Make sure
+    any important conclusions are robust to different RNG seeds and training sets.
 }
 
 \only<4>{

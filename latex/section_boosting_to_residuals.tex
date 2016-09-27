@@ -134,7 +134,7 @@ The \textit{residuals}, $y_i - f_0(x_i)$ answer this question
 
 \only<2>{
   \begin{center}
-    But...  there is a huge issue with this...
+    But...  there is a big issue with this...
   \end{center}
 }
 
@@ -298,15 +298,15 @@ $$ \lambda = 0.01 $$
 
 \begin{frame}{Gradient Boosting to Minimize Sum of Squared Errors}
 
-\textbf{Inputs:} A data set $\{ x_i, y_i \}$, and a learning rate $\lambda$.
+\textbf{Inputs:} A training data set $\{ x_i, y_i \}$, and a learning rate $\lambda$.
 
 \textbf{Returns:} A function $f$ such that $f(x_i) \approx y_i$.
 
 \begin{itemize}
   \item Initialize $S_0(x) = f_0(x) = \frac{1}{N} \sum_i y_i$.
   \item Iterate (parameter $k$) until satisfied: \begin{itemize}
-    \item Create the working data set $W_k = \{ x_i, y_i - S_{k-1}(x_i) \}$.
-    \item Fit a decision tree to $W_k$, minimizing least squares.  Call this tree $f_k$.
+    \item Create the working data set $W_k = \{ x_i, y_i - S_{k}(x_i) \}$.
+    \item Fit a regression tree to $W_k$, minimizing least squares.  Call this tree $f_k$.
     \item Set $S_{k+1}(x) = S_{k}(x) + \lambda f_{k}(x)$. 
   \end{itemize}
   \item Return $f_{\text{max}}(x) = f_0(x) + f_1(x) + f_2(X) + \cdots + f_{\text{max}}(x)$.

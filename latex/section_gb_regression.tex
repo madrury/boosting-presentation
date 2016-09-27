@@ -61,10 +61,10 @@ The most important options to \texttt{GradientBoostedRegressor} are
 
 \begin{itemize}
   \item \texttt{loss} controls the loss function to minimize.  \texttt{ls} is the least squares minimization algorithm we discussed in the previous section.
-  \item \texttt{n\_estiamtors} is how many boosting stages to compute, i.e. how many regression trees to grow.
+  \item \texttt{n\_estimators} is how many boosting stages to compute, i.e. how many regression trees to grow.
   \item \texttt{learning\_rate} is the learning rate for the gradient update.
   \item \texttt{max\_depth} controls how deep to grow each individual tree.
-  \item \texttt{subsample} allows to fit each tree on a random sample of the training data (like bagging in random forests).
+  \item \texttt{subsample} allows to fit each tree on a random sample of the training data (similar to bagging in random forests).
 \end{itemize}
 
 \end{frame}
@@ -72,6 +72,16 @@ The most important options to \texttt{GradientBoostedRegressor} are
 \begin{frame}{Tuning the Number of Estimators}
 
 As more and more trees are added to the model the training set error will be driven down monotonically, but the same is not true for the testing error
+
+  \begin{figure}
+    \includegraphics[scale=0.45]{training-and-testing-error}
+  \end{figure}
+
+\end{frame}
+%
+\begin{frame}{Tuning the Number of Estimators}
+
+\textbf{Question:} Will the training error ever become \textit{exactly} zero?
 
   \begin{figure}
     \includegraphics[scale=0.45]{training-and-testing-error}
@@ -90,7 +100,7 @@ This means that it is essential to determine the proper number of trees to grow,
 \end{frame}
 %
 \begin{frame}
-One way to tune the numer of trees is to make use of a validation set, held out from both training and testing
+One way to tune the number of trees is to make use of a validation set, held out from both training and testing
 
   \begin{figure}
     \includegraphics[scale=0.45]{training-and-testing-error-with-optima}
@@ -163,7 +173,7 @@ A smaller learning rate reduces the boosted models sensitivity to the training d
 \begin{frame}
 Decreasing the learning rate reduces how fast the booster drives down the training error rate
   \begin{figure}
-    \includegraphics[scale=0.30]{varying-learning-rate-error}
+    \includegraphics[scale=0.50]{varying-learning-rate-error-training}
   \end{figure}
   
 \end{frame}
@@ -187,7 +197,7 @@ In general, a smaller learning rate eventually (over enough time) results in a s
 \end{frame}
 %
 \begin{frame}
-\textbf{Strategy for Learning Rate}:
+\textbf{Strategy for Tuning Learning Rate}:
 
 \begin{itemize}
   \item In the initial exploratory phases of modeling, set the learning rate to some large value, say $0.1$.  This allows you to iterate through ideas quickly.
@@ -242,7 +252,7 @@ It's never obvious up front what tree depth is best for a given problem, so a gr
 \end{frame}
 %
 \begin{frame}
-\textbf{Strategy for Tree Depth}:
+\textbf{Strategy for Tuning Tree Depth}:
 
 Tune with a grid search and cross validation.
   
@@ -272,12 +282,26 @@ Between these two extremes, different levels of subsampling generally give the s
   
 \end{frame}
 %
+
+
 \begin{frame}
-\textbf{Strategy For Subsample:}\\~\\
+\textbf{Question}: Why does the training error \textit{increase} when the learning rate is $1$?
+
+  \begin{figure}
+    \includegraphics[scale=0.50]{varying-learning-rate-error-training}
+  \end{figure}
+  
+\end{frame}
+%
+
+\begin{frame}
+\textbf{Strategy For Tuning Subsample:}\\~\\
 
 Set to $0.5$, it almost always works well.\\~\\
 
-If you have a massive amount of data and want the model to fit more quickly, decrease this value.
+If you have a massive amount of data and want the model to fit more quickly, decrease this value.\\~\\
+
+\textbf{Note:} The default rate is $1.0$, so make sure you \textit{always} change it.
 \end{frame}
 %
 \begin{frame}{Tuning Other Gradient Boosting Parameters}
@@ -300,7 +324,7 @@ If you \textit{do} decide to include these in a grid search, \textit{be wary of 
 }
 
 \only<3->{
-\textit{The number of model comaprisons grows exponentially in the number of parameters tuned.}
+\textit{The number of model comparisons grows exponentially in the number of parameters tuned.}
 }
 \end{frame}
 %

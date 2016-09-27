@@ -1,9 +1,9 @@
 \beamer@endinputifotherversion {3.33pt}
-\beamer@sectionintoc {1}{Outline of the Lesson}{12}{0}{1}
-\beamer@sectionintoc {2}{Boosting To Residuals}{15}{0}{2}
-\beamer@sectionintoc {3}{Practical Gradient Boosted Regression}{56}{0}{3}
-\beamer@sectionintoc {4}{Interpreting Gradient Boosting}{90}{0}{4}
-\beamer@sectionintoc {5}{Other Gradient Boosting Algorithms}{108}{0}{5}
-\beamer@sectionintoc {6}{Final Words About Boosting}{140}{0}{6}
-\beamer@sectionintoc {7}{Appendix: Generalizing the Algorithm}{148}{0}{7}
-\beamer@sectionintoc {8}{Appendix: Gradient Boosted Logistic Regression Derivation}{157}{0}{8}
+\beamer@sectionintoc {1}{Outline of the Lesson}{13}{0}{1}
+\beamer@sectionintoc {2}{Boosting To Residuals}{16}{0}{2}
+\beamer@sectionintoc {3}{Practical Gradient Boosted Regression}{57}{0}{3}
+\beamer@sectionintoc {4}{Interpreting Gradient Boosting}{93}{0}{4}
+\beamer@sectionintoc {5}{Other Gradient Boosting Algorithms}{111}{0}{5}
+\beamer@sectionintoc {6}{Final Words About Boosting}{143}{0}{6}
+\beamer@sectionintoc {7}{Appendix: Generalizing the Algorithm}{152}{0}{7}
+\beamer@sectionintoc {8}{Appendix: Gradient Boosted Logistic Regression Derivation}{161}{0}{8}

@@ -27,8 +27,25 @@ Nonetheless, it has drawbacks.
 \only<4>{
   \item The sequential nature of the standard boosting algorithm makes it very difficult to parallelize (compared to, for example, random forest).  Recently, there has been great progress (xgboost).
 }
-
 \end{itemize}
+\end{frame}
+%
+
+\begin{frame}{Software Options For Boosting}
+
+\begin{itemize}
+  \item There are many quality open source implementations of gradient boosting algorithms:
+  \begin{itemize}
+    \item Sklearn, obviously :)
+    \item R's \texttt{gbm} is great.  It offers many different loss functions
+    and is feature rich.
+    \item \texttt{xgboost} is a modern interpretation of gradient boosting, with
+    many algorithmic innovations that make it faster and more accurate.  State of the art, with python interface.
+    \item \texttt{H2O} offers a distributed gradient booster that can handle
+    massive data sets.  Also offers a python interface.
+  \end{itemize}
+\end{itemize}
+
 \end{frame}
 %
 \begin{frame}{Q\&A}
